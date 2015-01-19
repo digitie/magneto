@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Exp View</title>
+<script src="/static/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="/static/js/jquery.form.js" type="text/javascript"></script>
+<script src="/static/js/jquery.validate.js" type="text/javascript"></script>
+<script src="/static/js/jquery.dataTables.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+
+<body>
+<div>
+<img src="/exp/plot/ar_resonance?{{ request.query_string }}" />
+</div>
+<div>
+<img src="/exp/plot/ar_imp_re?{{ request.query_string }}" />
+</div>
+<div>
+<img src="/exp/plot/field_resonance?{{ request.query_string }}" />
+</div>
+<div>
+<img src="/exp/plot/freq_re?{{ request.query_string }}" />
+</div>
+<div>
+<img src="/exp/plot/smithchart?{{ request.query_string }}" />
+</div>
+</body>
+</html>

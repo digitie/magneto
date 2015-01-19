@@ -1,0 +1,173 @@
+<?xml version="1.0" ?>
+<resource>
+  
+  <object class="wxDialog" name="MaterialDialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxFlexGridSizer">
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Name:</label>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="name">
+              <size>80,-1</size>
+            </object>
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="nameError">
+              <size>100,-1</size>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Young's Modulus E (MPa):</label>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="youngsModulus">
+              <size>80,-1</size>
+            </object>
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="youngsModulusError">
+              <size>100,-1</size>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Density (kg/m^3):</label>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="density">
+              <size>80,-1</size>
+            </object>
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="densityError">
+              <size>100,-1</size>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Poisson's Ratio:</label>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="poissonsRatio">
+              <size>80,-1</size>
+            </object>
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="poissonsRatioError">
+              <size>100,-1</size>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Shear Modulus G (MPa):</label>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="shearModulus">
+              <size>80,-1</size>
+            </object>
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="shearModulusError">
+              <size>100,-1</size>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <cols>3</cols>
+          <rows>0</rows>
+          <vgap>0</vgap>
+          <hgap>0</hgap>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Comment:</label>
+            </object>
+            <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="comment">
+              <size>80,-1</size>
+            </object>
+            <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="commentError">
+              <size>100,-1</size>
+            </object>
+          </object>
+        </object>
+        <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>10</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxFlexGridSizer">
+          <object class="spacer">
+            <size>165,-1</size>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="save">
+              <label>&amp;Save</label>
+              <default>1</default>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>10</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="cancel">
+              <label>&amp;Cancel</label>
+            </object>
+            <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            <border>10</border>
+          </object>
+          <cols>3</cols>
+          <rows>1</rows>
+        </object>
+        <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+      </object>
+    </object>
+    <centered>1</centered>
+  </object>
+
+  
+  
+</resource>

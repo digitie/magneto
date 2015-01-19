@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Exp List</title>
+<script src="/static/js/jquery-1.9.0.min.js" type="text/javascript"></script><script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script src="/static/js/jquery.form.js" type="text/javascript"></script>
+<script src="/static/js/jquery.pickadate.picker.js" type="text/javascript"></script>
+<script src="/static/js/jquery.pickadate.picker.date.js" type="text/javascript"></script>
+<script src="/static/js/jquery.pickadate.picker.time.js" type="text/javascript"></script>
+<script src="/static/js/jquery.pickadate.legacy.js" type="text/javascript"></script>
+<script src="/static/js/jquery.pickadate.ko_KR.js" type="text/javascript"></script>
+<script src="/static/js/jquery.validate.js" type="text/javascript"></script>
+<script src="/static/js/additional-methods.js" type="text/javascript"></script>
+<script src="/static/js/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/static/js/ColReorder.js" type="text/javascript"></script>
+<script src="/static/js/ColVis.js" type="text/javascript"></script>
+<script src="/static/js/jquery.magnefic-popup.js" type="text/javascript"></script>
+<script src="/static/js/ZeroClipboard.js" type="text/javascript"></script>
+<script src="/static/js/underscore.js" type="text/javascript"></script>
+<script src="/static/js/TableTools.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/dataTables.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<link rel="stylesheet" type="text/css" href="/static/css/magnefic-popup.css">
+<link rel="stylesheet" type="text/css" href="/static/css/ColVis.css">
+<link rel="stylesheet" type="text/css" href="/static/css/ColReorder.css">
+<link rel="stylesheet" type="text/css" href="/static/css/TableTools.css">
+<link rel="stylesheet" href="/static/css/pickadate/default.css" id="theme_base">
+<link rel="stylesheet" href="/static/css/pickadate/default.date.css" id="theme_date">
+<link rel="stylesheet" href="/static/css/pickadate/default.time.css" id="theme_time">
+</head>
+
+<body>
+    <script type="text/javascript" charset="utf-8">
+    var table;
+    var expIds = new Array();
+    var asInitVals = new Array();
+    /* Formating function for row details */
+function fnFormatDetails ( oTable, nTr )
+{
+    var aData = oTable.fnGetData( nTr );
+    var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" width="100%">';
+    sOut += '<tr><td width="180pt">VNA Channel:</td><td>'+aData['channel']+'</td></tr>';
+    sOut += '<tr><td>VNA Measure Type:</td><td>'+aData['measure_type']+'</td></tr>';
+    sOut += '<tr><td>VNA IF Bandwidth:</td><td>'+aData['if_bandwidth']+'</td></tr>';
+    sOut += '<tr><td>Comment:</td><td>'+aData['comment']+'</td></tr>';
+    sOut += '</table>';
+     
+    return sOut;
+}/* Get the rows which are currently selected */
+function createSelectedView()
+{
+  div = document.createElement('span');
+  for(var i = 0; i < expIds.length; i++) {    
+    newSpan = document.createElement('span');
+    t=document.createTextNode(expIds[i]);
+    newSpan.appendChild(t);
+    div.appendChild(newSpan);
+
+  }
+  return div;
+}
+function fnGetSelected( oTableLocal )
+{
+    return oTableLocal.$('tr.row_selected');
+}
+      $(document).ready(function() {
+        $('.popup-modal').magnificPopup({
+          type: 'inline',
+          preloader: false,
+          focus: '#username',
+          modal: true
+        });
+        $(document).on('click', '.popup-modal-dismiss', function (e) {
+          e.preventDefault();
+          $.magnificPopup.close();
+        });
+        $(document).on('click', '.popup-modal-delete', function (e) {
+          e.preventDefault();
+          
+          var qstr = new Array();
+          if ( expIds.length !== 0 ) {
+            for(var i = 0; i < expIds.length; i++) {
+              qstr[i] = {
+                'name': 'exp_id',
+                'value': expIds[i]
+              };
+            }
+            $.ajax({
+              url: "/api/exp/delete",
+              data: $.param(qstr),
+              dataType: "json",
+              context: document.body
+            }).done(function() {
+              $( this ).addClass( "done" );
+            });
+          }
+          table.fnDraw(false);
+          $.magnificPopup.close();
+        });
+      $("tfoot input").keyup( function () {
+          /* Filter on the column (the index) of this element */
+          table.fnFilter( this.value, table.oApi._fnVisibleToColumnIndex( 
+            table.fnSettings(), $("tfoot input").index(this) ) );
+      } );
+        
+  /*
+     * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+     * the footer
+     */
+    $("tfoot input").each( function (i) {
+        asInitVals[i] = this.value;
+    } );
+     
+    $("tfoot input").focus( function () {
+        if ( this.className == "search_init" )
+        {
+            this.className = "";
+            this.value = "";
+        }
+    } );
+     
+    $("tfoot input").blur( function (i) {
+        if ( this.value == "" )
+        {
+            this.className = "search_init";
+            this.value = asInitVals[$("tfoot input").index(this)];
+        }
+    } );
+        
+        table = $('#example').dataTable( {        
+          "oLanguage": {
+            "sSearch": "Search all columns:"
+          },    
+          "aaSorting": [
+            [0,'desc']
+          ],
+          "oColVis": {
+            "aiExclude": [ 0 ]
+          },
+          "oTableTools": {
+            "sRowSelect": "multi",
+            "aButtons": [ "select_all", "select_none" ],
+            "fnRowSelected": function ( nodes ) {
+              if ( nodes.length !== 0 ) {
+                for(var i = 0; i < nodes.length; i++) {
+                  var aData = table.fnGetData( nodes[i] );
+                  expIds.push(aData['id']);
+                  expIds.sort();
+                  $('#selected_data').empty();
+                  $('#selected_data').append($(createSelectedView()));
+                }
+              }
+            },
+            "fnRowDeselected": function ( nodes ) {
+              if ( nodes.length !== 0 ) {
+                for(var i = 0; i < nodes.length; i++) {
+                  var aData = table.fnGetData( nodes[i] );
+                  expIds = _.without(expIds, aData['id']);
+                  expIds.sort();
+                  $('#selected_data').empty();
+                  $('#selected_data').append($(createSelectedView()));
+                }
+              }
+            }
+          },
+          "bProcessing": true,
+          "bServerSide": true,
+          "sDom": 'RCT<"clear">lfrtip',
+          "sAjaxSource": "/api/exp/list",
+          "aoColumns": [        
+            { 
+              "mData": "detail",
+              "sClass": "center",
+              "bSortable": false,
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "ac_coil_id",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "dc_coil_id",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "exp_date",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "patch_material",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "patch_width",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data + " mm";;
+              }
+            },
+            { 
+              "mData": "patch_height",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data + " mm";;
+              }
+            },
+            { 
+              "mData": "dc_current",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data + " A";
+              }
+            },
+            { 
+              "mData": "dc_field",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data + " Oe";
+              }
+            },
+            { 
+              "mData": "imp_re",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data + " Ohm";;
+              }
+            },
+            { 
+              "mData": "freq",
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return data + " Hz";;
+              }
+            },  
+            { 
+              "mData": "number_of_points",
+              "sClass": "center",
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "sweep_type",
+              "sClass": "center",
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "source_power",
+              "sClass": "center",
+              "bVisible": true,
+              "mRender": function (data, type, val) {
+                  return data + " dBm";
+              }
+            },
+            { 
+              "mData": "sweep_time",
+              "sClass": "center",
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data + " ms";;
+              }
+            },          
+            { 
+              "mData": "comment",
+              "bSortable": false,
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },  
+            { 
+              "mData": "if_bandwidth",
+              "sClass": "center",
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data + " kHz";
+              }
+            },  
+            { 
+              "mData": "channel",
+              "sClass": "center",
+              "bSortable": false,
+              "bSearchable": false,
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },  
+            { 
+              "mData": "measure_type",
+              "sClass": "center",
+              "bSortable": false,
+              "bVisible": false,
+              "mRender": function (data, type, val) {
+                  return data;
+              }
+            },
+            { 
+              "mData": "id",
+              "bSortable": false,
+              "bSearchable": false,
+              "sClass": "center",
+              "mRender": function (data, type, val) {
+                  return '<a href="/exp/insert?exp_id=' + data + '">편집</a>';
+              }
+            }
+          ]
+        } );
+        /* Add a click handler to the rows - this could be used as a callback */
+        /*
+        $("#example tbody").on('click', 'tr', function( e ) {        
+          if ( $(this).hasClass('row_selected') ) {
+            $(this).removeClass('row_selected');
+          }
+          else {
+            $(this).addClass('row_selected');
+            var anSelected = fnGetSelected( table );
+            if ( anSelected.length !== 0 ) {
+              for(var i = 0; i < anSelected.length; i++) {
+                var aData = table.fnGetData( anSelected[i] );
+                str += aData['id'];
+              }
+            $('#selected_data').html(str);
+            }
+          }
+        });*/
+        /* Add event listener for opening and closing details
+         * Note that the indicator for showing which row is open is not controlled by DataTables,
+         * rather it is done here
+         */
+        $('#example tbody').on('click', 'img', function () {
+            var nTr = $(this).parents('tr')[0];
+            if ( table.fnIsOpen(nTr) )
+            {
+                /* This row is already open - close it */
+                this.src = "/static/img/details_open.png";
+                table.fnClose( nTr );
+            }
+            else
+            {
+                /* Open this row */
+                this.src = "/static/img/details_close.png";
+                table.fnOpen( nTr, fnFormatDetails(table, nTr), 'details' );
+            }
+        } );
+        $('#compare').click( function() {
+            var qstr = new Array();
+            if ( expIds.length !== 0 ) {
+              for(var i = 0; i < expIds.length; i++) {
+                qstr[i] = {
+                  'name': 'exp_id',
+                  'value': expIds[i]
+                };
+              }
+              window.location.href = "/exp/view?" + $.param(qstr);
+            }
+        } );
+        $('#example tbody').on('click', 'td:eq(1)', function () {
+            var nTr = $(this).parents('tr')[0];
+            var aData = table.fnGetData( nTr );
+        } );
+      } );
+    </script>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ACCoil</th>
+      <th>DCCoil</th>
+      <th>날짜</th>
+      <th>재질</th>
+      <th>폭</th>
+      <th>길이</th>
+      <th>인가전류</th>
+      <th>필드</th>
+      <th>Re(z)</th>
+      <th>공진주파수</th>
+      <th>계측포인트</th>
+      <th>계측간격</th>
+      <th>소스파워</th>
+      <th>계측시간</th>
+      <th>메모</th>
+      <th>IF Bandwidth</th>
+      <th>채널</th>
+      <th>계측형태</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="19" class="dataTables_empty">Loading data from server</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <form id="searchFieldForm">
+      <th><input type="text" id="search_id"  name="search_id" value="" class="search_init" /></th>
+      <th><input type="text" id="search_ac_coil_id" name="search_ac_coil_id" value="AC코일번호" class="search_init" /></th>
+      <th><input type="text" id="search_dc_coil_id" name="search_dc_coil_id" value="DC코일번호" class="search_init" /></th>
+      <th><input type="text" id="search_exp_date" name="search_exp_date" value="날짜" class="search_init" id="exp_date" /></th>
+      <th><input type="text" id="search_patch_material" name="search_patch_material" value="재질" class="search_init" /></th>
+      <th><input type="text" id="search_patch_width" name="search_patch_width" value="폭" class="search_init" /></th>
+      <th><input type="text" id="search_patch_height" name="search_patch_height" value="길이" class="search_init" /></th>
+      <th><input type="text" id="search_dc_current" name="search_dc_current" value="전류" class="search_init" /></th>
+      <th><input type="text" id="search_dc_field" name="search_dc_field" value="필드" class="search_init" /></th>
+      <th><input type="text" id="search_imp_re" name="search_imp_re" value="임피던스" class="search_init" /></th>
+      <th><input type="text" id="search_freq" name="search_freq" value="공진주파수" class="search_init" /></th>
+      <th><input type="text" id="search_number_of_points" name="search_number_of_points" value="포인트" class="search_init" /></th>
+      <th><input type="text" id="search_sweep_type" name="search_sweep_type" value="Search engines" class="search_init" /></th>
+      <th><input type="text" id="search_source_power" name="search_source_power" value="Search browsers" class="search_init" /></th>
+      <th><input type="text" id="search_sweep_time" name="search_sweep_time" value="Search versions" class="search_init" /></th>
+      <th><input type="text" name="search_comment" value="Search grades" class="search_init" /></th>
+      <th><input type="text" name="search_comment" value="Search grades" class="search_init" /></th>
+      <th><input type="text" name="search_comment" value="Search grades" class="search_init" /></th>
+      <th><input type="text" name="search_comment" value="Search grades" class="search_init" /></th>
+      <th><input type="text" name="search_comment" value="Search grades" class="search_init" /></th>
+      </form>
+    </tr>
+  </tfoot>
+</table>
+</form>
+<div id="selected_data"></div>
+<p>d</p>
+<p><a href="/exp/insert">입력</a></p>
+
+<p><a class="popup-modal" href="#delete-modal">선택 데이터 삭제</a></p>
+<p><a href="javascript:void(0)" id="compare">선택 데이터 비교</a></p>
+
+  <div class="example gc3">
+      <div id="delete-modal" class="mfp-hide white-popup-block">
+        <h1>삭제</h1>
+        <p>삭제하시겠습니까?</p>
+        <p><a class="popup-modal-dismiss" href="#">아니오</a> <a class="popup-modal-delete" href="#">예</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<?xml version="1.0" ?>
+<resource>
+  
+  <object class="wxDialog" name="acCoilPropertyDialog">
+    <object class="wxPanel" name="acCoilPropertyPanel">
+      <object class="wxBoxSizer">
+        <orient>wxVERTICAL</orient>
+        <object class="sizeritem">
+          <object class="wxFlexGridSizer">
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Name:</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxTextCtrl" name="ID_LENGTH">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Type:</label>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxChoice" name="ID_TYPE">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Width X (mm):</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxTextCtrl" name="ID_WIDTH">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Height Y (mm):</label>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxTextCtrl" name="ID_HEIGHT">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Length Z (mm):</label>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxTextCtrl" name="ID_LENGTH">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Turn:</label>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxTextCtrl" name="ID_TURN">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText" name="ID_TEXT">
+                <label>Wire Diameter (mm)</label>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxTextCtrl" name="ID_WIRE_DIA">
+                <size>80,-1</size>
+              </object>
+              <flag>wxGROW|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+              <border>5</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticText">
+                <size>100,-1</size>
+                <label>LABEL</label>
+              </object>
+              <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              <border>5</border>
+            </object>
+            <cols>3</cols>
+            <rows>0</rows>
+            <vgap>0</vgap>
+            <hgap>0</hgap>
+          </object>
+          <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+          <border>10</border>
+        </object>
+        <object class="sizeritem">
+          <object class="wxFlexGridSizer">
+            <object class="spacer">
+              <size>165,-1</size>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+            </object>
+            <object class="sizeritem">
+              <object class="wxButton" name="ID_SAVE">
+                <label>&amp;Save</label>
+                <default>1</default>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+              <border>10</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxButton" name="ID_CANCEL">
+                <label>&amp;Cancel</label>
+              </object>
+              <flag>wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL</flag>
+              <border>10</border>
+            </object>
+            <cols>3</cols>
+            <rows>1</rows>
+          </object>
+          <flag>wxTOP|wxLEFT|wxRIGHT|wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        </object>
+      </object>
+    </object>
+  </object>
+</resource>
